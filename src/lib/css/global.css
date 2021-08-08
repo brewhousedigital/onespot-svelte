@@ -1,0 +1,87 @@
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.display-1, .display-2, .display-3, .display-4,
+.font-header {
+    font-family: 'Roboto Slab', serif;
+}
+
+h1, h3, h5,
+.h1, .h3, .h5 {
+    font-weight: 700;
+}
+
+h2, h4, h6,
+.h2, .h4, .h6 {
+    font-weight: 300;
+}
+
+.font-monospace {
+    font-family: monospace;
+}
+
+pre {
+    background-color: var(--clouds);
+    padding: .8em .8em;
+    border-radius: 6px;
+}
+
+code {
+    border-radius: 6px;
+    font-size: 85%;
+    margin: 0;
+    padding: .2em .4em;
+    background-color: var(--clouds);
+}
+
+pre > code {
+    padding: 0;
+}
+
+.spinner-border {
+    width: 1rem;
+    height: 1rem;
+}
+
+body {
+    --turquoise: #1ABC9C;
+    --emerland: #2ECC71;
+    --peterriver: #3498DB;
+    --amethyst: #9B59B6;
+    --wetasphalt: #34495E;
+    --greensea: #16A085;
+    --nephritis: #27AE60;
+    --belizehole: #2980B9;
+    --wisteria: #8E44AD;
+    --midnightblue: #2C3E50;
+    --sunflower: #F1C40F;
+    --carrot: #E67E22;
+    --alizarin: #E74C3C;
+    --clouds: #ECF0F1;
+    --concrete: #95A5A6;
+    --orange: #F39C12;
+    --pumpkin: #D35400;
+    --pomegranate: #C0392B;
+    --silver: #BDC3C7;
+    --asbestos: #7F8C8D;
+}
+
+.color-turquoise {color: var(--turquoise)}
+.color-emerland {color: var(--emerland)}
+.color-peterriver {color: var(--peterriver)}
+.color-amethyst {color: var(--amethyst)}
+.color-wetasphalt {color: var(--wetasphalt)}
+.color-greensea {color: var(--greensea)}
+.color-nephritis {color: var(--nephritis)}
+.color-belizehole {color: var(--belizehole)}
+.color-wisteria {color: var(--wisteria)}
+.color-midnightblue {color: var(--midnightblue)}
+.color-sunflower {color: var(--sunflower)}
+.color-carrot {color: var(--carrot)}
+.color-alizarin {color: var(--alizarin)}
+.color-clouds {color: var(--clouds)}
+.color-concrete {color: var(--concrete)}
+.color-orange {color: var(--orange)}
+.color-pumpkin {color: var(--pumpkin)}
+.color-pomegranate {color: var(--pomegranate)}
+.color-silver {color: var(--silver)}
+.color-asbestos {color: var(--asbestos)}

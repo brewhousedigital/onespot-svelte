@@ -1,0 +1,46 @@
+<script context="module">
+    export async function load(ctx) {
+        // "tableOfContents" is the file name. That is where the parameter comes from
+        let slug = ctx.page.params.tableOfContents;
+        return {props: {slug: slug}};
+    }
+</script>
+
+<script>
+    import slugURL from "$lib/js/slugURL";
+    import { onMount } from "svelte";
+    import CollectionTemplate from "$lib/page-components/CollectionTemplate.svelte";
+
+    export let slug = "";
+    let OSD = [];
+    let pages = [];
+    let categoryTitle = "";
+
+    let currentTitle = "";
+
+    onMount(() => {
+        // Grab latest storage info
+        OSD = JSON.parse(localStorage.getItem("OSD"));
+
+        // Filter out anything thats not part of this group of pages
+        pages = OSD.filter(item => {
+            if(item.category !== null && item.category !== undefined) {
+                return slugURL(item.category) === slug
+            }
+        });
+
+        // Grab official title
+        if(pages.length > 0) {categoryTitle = pages[0]['category']}
+    })
+</script>
+
+<svelte:head>
+    <title>{categoryTitle} Category</title>
+</svelte:head>
+
+<CollectionTemplate {categoryTitle} {pages}>
+    <h2 class="pt-5">
+        <i class="bi bi-arrow-left-circle me-2"></i>
+        <span>Choose a topic</span>
+    </h2>
+</CollectionTemplate>
