@@ -10,6 +10,7 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
+    "@sveltejs/adapter-netlify": "^1.0.0-next.25",
     "@sveltejs/kit": "next",
     "backendless": "^6.2.21",
     "eslint": "^7.22.0",
@@ -19,6 +20,16 @@
     "prettier-plugin-svelte": "^2.2.0",
     "slugify": "^1.6.0",
     "svelte": "^3.34.0"
+  },
+  "dependencies": {
+    "@lukeed/uuid": "^2.0.0",
+    "axios": "^0.21.1",
+    "backendless": "^6.2.21",
+    "bufferutil": "^4.0.3",
+    "cookie": "^0.4.1",
+    "dotenv": "^10.0.0",
+    "supports-color": "^9.0.2",
+    "utf-8-validate": "^5.0.5"
   },
   "type": "module"
 }
