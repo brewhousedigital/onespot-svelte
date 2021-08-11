@@ -1,5 +1,22 @@
 // Backendless may have a limit of 100 pages. Need to revisit this in the future.
 import Backendless from "backendless";
+import {goto} from "$app/navigation";
+
+
+export const getUserDetailsFromBackendless = async () => {
+    let userDetails;
+
+    await Backendless.UserService.getCurrentUser()
+        .then(function(response) {
+            if(response === null && window.location.pathname !== "/access") {
+                goto("/access")
+            }
+        })
+        .catch(function(error) {
+            console.log(error)
+            goto("/access")
+        });
+}
 
 
 export const getAllDataFromBackendless = async () => {
@@ -12,8 +29,8 @@ export const getAllDataFromBackendless = async () => {
             return OSD;
         })
         .catch(function(error) {
+            // TODO: Create an error for this
             console.log(error)
-            return OSD;
         });
 }
 

@@ -3,9 +3,9 @@
 </script>
 
 <svelte:head>
-    <title>Settings</title>
+    <title>Search</title>
 </svelte:head>
 
-<h1>Settings</h1>
+<h1>Search</h1>
 
 <h2 class="text-muted">Coming Soon...</h2>

@@ -2,14 +2,18 @@
     import '$lib/css/global.css';
     import SidebarCompany from "$lib/page-components/SidebarCompany.svelte";
     import StarThisPage from "$lib/page-components/StarThisPage.svelte";
-    import { afterUpdate, onMount } from "svelte";
+    import { beforeUpdate, afterUpdate, onMount } from "svelte";
     import slugURL from "$lib/js/slugURL";
-    import { getAllDataFromBackendless, getAllCategories } from "$lib/js/getDataFromBackendless";
+    import {getAllDataFromBackendless, getAllCategories, getUserDetailsFromBackendless} from "$lib/js/getDataFromBackendless";
+
+    import { fade } from 'svelte/transition';
 
     let currentTitle = "";
+    let loadContent = false;
 
     import Backendless from 'backendless'
     import {partyJS} from "$lib/js/party";
+    import {goto} from "$app/navigation";
     const APP_ID = 'BFD3873C-0565-EBFE-FFA8-8001D60AC000';
     const API_KEY = '8561E43D-334E-44E4-B05E-40A81D6E081A';
     Backendless.initApp(APP_ID, API_KEY);
@@ -17,10 +21,18 @@
     let currentPath;
 
     let OSD = [];
+    let userDetails;
     let categories = [];
+    let auth = false;
 
+    function storageSetup() {
+        if(localStorage.getItem("userDetails") === null) {
+            localStorage.setItem("userDetails", JSON.stringify(null))
+        }
+    }
 
     onMount(async() => {
+        userDetails = await getUserDetailsFromBackendless();
         OSD = await getAllDataFromBackendless();
         categories = getAllCategories();
 
@@ -29,9 +41,30 @@
 
         // Activate confetti!
         partyJS();
+
+        loadContent= true;
+    })
+
+    beforeUpdate(() => {
+
     })
 
     afterUpdate(() => {
+        // Authentication check
+        let url = window.location.pathname;
+        storageSetup();
+        userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
+        // Set if user is logged in or not
+        userDetails === null || userDetails === false ? auth = false : auth = true;
+
+        if(url.includes("/access")) return false;
+        if(url.includes("/logout")) return false;
+
+        // If user is not on the unauthenticated pages, redirect them
+        //if(userDetails === null || userDetails === false) goto("/access")
+
+        // If user is logged in, generate categories
         currentPath = window.location.pathname;
         categories = getAllCategories();
     })
@@ -115,7 +148,8 @@
     }
 </style>
 
-<div class="container-fluid">
+{#if loadContent}
+<div class="container-fluid" transition:fade="{{duration: 300}}">
     <div class="row">
         <div id="layout-sidebar" class="col-auto">
             <div id="layout-sidebar-scroll" class="d-flex flex-column">
@@ -123,7 +157,7 @@
 
                 <nav id="nav-main-options">
                     <a href="/" sveltekit:prefetch><i class="bi bi-house-door-fill me-2"></i>Home</a>
-                    <a href="/" sveltekit:prefetch><i class="bi bi-search me-2"></i>Search</a>
+                    <a href="/search" sveltekit:prefetch><i class="bi bi-search me-2"></i>Search</a>
                     <a href="/starred" sveltekit:prefetch><i class="bi bi-star-fill me-2"></i>Starred</a>
                 </nav>
 
@@ -142,7 +176,7 @@
                 </nav>
 
                 <nav id="nav-settings" class="mt-auto">
-                    <a href="/" sveltekit:prefetch><i class="bi bi-archive-fill me-2"></i>Archive</a>
+                    <a href="/archive" sveltekit:prefetch><i class="bi bi-archive-fill me-2"></i>Archive</a>
                     <a href="/settings" sveltekit:prefetch><i class="bi bi-gear-fill me-2"></i>Settings</a>
                 </nav>
             </div><!-- end scroll -->
@@ -161,3 +195,4 @@
         </div><!-- end col -->
     </div><!-- end row -->
 </div><!-- end container -->
+{/if}
