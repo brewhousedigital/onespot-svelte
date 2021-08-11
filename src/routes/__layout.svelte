@@ -9,6 +9,7 @@
     let currentTitle = "";
 
     import Backendless from 'backendless'
+    import {partyJS} from "$lib/js/party";
     const APP_ID = 'BFD3873C-0565-EBFE-FFA8-8001D60AC000';
     const API_KEY = '8561E43D-334E-44E4-B05E-40A81D6E081A';
     Backendless.initApp(APP_ID, API_KEY);
@@ -25,6 +26,9 @@
 
         currentPath = window.location.pathname;
         currentTitle = document.title;
+
+        // Activate confetti!
+        partyJS();
     })
 
     afterUpdate(() => {
@@ -52,6 +56,7 @@
         overflow-y: scroll;
         overflow-x: hidden;
         height: 100%;
+        min-width: 275px
     }
 
     #layout-sidebar {

@@ -39,8 +39,14 @@
 </svelte:head>
 
 <CollectionTemplate {categoryTitle} {pages}>
-    <h2 class="pt-5">
-        <i class="bi bi-arrow-left-circle me-2"></i>
-        <span>Choose a topic</span>
-    </h2>
+    <div class="d-flex align-items-center">
+        <div class="col-auto me-3">
+            <h2 class="mb-0"><i class="bi bi-arrow-left-circle"></i></h2>
+        </div><!-- end col -->
+
+        <div class="col-auto">
+            <h1 class="mb-0">{categoryTitle}</h1>
+            <h2 class="mb-0">Choose a topic</h2>
+        </div><!-- end col -->
+    </div>
 </CollectionTemplate>

@@ -28,6 +28,9 @@
         await Backendless.Data.of("osd_pages").save(formData)
             .then(async function(response) {
                 //console.log(response);
+                let starComponent = document.getElementById("submitBtn")
+                party.confetti(starComponent);
+
                 await getAllDataFromBackendless();
                 await goto(response.url)
             })
@@ -92,5 +95,8 @@
     </div>
 
 
-    <p><button id="submitBtn" class="btn btn-primary px-5" type="submit">Save</button></p>
+    <p>
+        <button id="submitBtn" class="btn btn-primary px-5" type="submit">Save</button>
+        <a href="{pageURL}" id="cancelBtn" class="btn px-5">Cancel</a>
+    </p>
 </form>

@@ -13,6 +13,8 @@
 
     import CollectionTemplate from "$lib/page-components/CollectionTemplate.svelte";
     import EditPageTemplate from "$lib/page-components/EditPageTemplate.svelte";
+    import {goto} from "$app/navigation";
+    import {getAllDataFromBackendless} from "$lib/js/getDataFromBackendless";
 
     // These are the URL parameters
     export let slug = [];
@@ -90,6 +92,21 @@
     })
 
 
+    function handlePageDelete() {
+        let deleteCheck = confirm("Are you sure you want to delete " + pageTitle + "?");
+
+        if(deleteCheck) {
+            Backendless.Data.of("osd_pages").remove({objectId: pageID})
+                .then(async function() {
+                    await getAllDataFromBackendless();
+                    await goto("/" + category)
+                })
+                .catch(function(error) {
+                    // TODO: log error state
+                    console.log(error);
+                });
+        }
+    }
 
 
 </script>
@@ -102,10 +119,17 @@
 
 {#if type === null}
 
-    <CollectionTemplate {pageCategory} {pages}>
+    <CollectionTemplate categoryTitle={pageCategory} {pages}>
         <h1 class="mb-0">
-            {pageTitle}
-            <a href="{pageURL}/edit" sveltekit:prefetch class="btn"><i class="bi bi-pencil"></i></a>
+            <span class="d-inline-block me-3">{pageTitle}</span>
+
+            <a href="{pageURL}/edit" sveltekit:prefetch class="btn px-3">
+                <i class="bi bi-pencil-square"></i>
+            </a>
+
+            <button class="btn px-3" on:click={handlePageDelete}>
+                <i class="bi bi-trash"></i>
+            </button>
         </h1>
         <p class="mb-5 text-muted">Last Updated: {pageUpdated}</p>
 

@@ -28,8 +28,11 @@
         await Backendless.Data.of("osd_pages").save(formData)
             .then(async function(response) {
                 console.log(response);
+                let starComponent = document.getElementById("submitBtn")
+                party.confetti(starComponent);
+
                 await getAllDataFromBackendless();
-                await goto(response.url)
+                await goto(response.url + "/edit")
             })
             .catch(function(error) {
                 // TODO: Create error box for this

@@ -1,5 +1,6 @@
 <script>
     import { onMount, tick } from "svelte";
+    import { partyJS } from "$lib/js/party";
 
     export let currentPath = "/";
     export let currentTitle = "Home";
@@ -42,6 +43,9 @@
 
 
     function starPage() {
+        let starComponent = document.getElementById("star-component")
+        party.confetti(starComponent);
+
         let currentURL = window.location.pathname;
         allStarredPages = [...allStarredPages, {
             url: currentURL,

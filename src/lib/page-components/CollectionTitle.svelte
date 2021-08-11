@@ -14,6 +14,6 @@
     <ol class="breadcrumb">
         <!--<li class="breadcrumb-item sidebar-label"><a href="#" class="text-decoration-none">{collection}</a></li>
         <li class="breadcrumb-item sidebar-label active" aria-current="page">Library</li>-->
-        <li class="breadcrumb-item sidebar-label">{categoryTitle}</li>
+        <li class="breadcrumb-item sidebar-label">Category: {categoryTitle}</li>
     </ol>
 </nav>
