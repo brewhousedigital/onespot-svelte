@@ -259,7 +259,7 @@
 
                         <nav id="nav-settings" class="mt-auto">
                             <a href="/archive" sveltekit:prefetch><i class="bi bi-archive-fill me-2"></i>Archive</a>
-                            <a href="/settings" sveltekit:prefetch><i class="bi bi-gear-fill me-2"></i>Settings</a>
+                            <!--<a href="/settings" sveltekit:prefetch><i class="bi bi-gear-fill me-2"></i>Settings</a>-->
                             <button type="button" on:click={handleDarkMode}><i class="bi bi-moon-stars me-2"></i>Dark Mode</button>
                             <a href="/logout" sveltekit:prefetch><i class="bi bi-box-arrow-up-left me-2"></i>Logout</a>
                         </nav>

@@ -24,8 +24,10 @@
 
         // Filter out anything thats not part of this group of pages
         pages = OSD.filter(item => {
-            if(item.category !== null && item.category !== undefined) {
-                return slugURL(item.category) === slug
+            if(!item['archived']) {
+                if (item.category !== null && item.category !== undefined) {
+                    return slugURL(item.category) === slug
+                }
             }
         });
 

@@ -36,6 +36,7 @@
     let pageUpdated = "";
     let pageURL = "";
     let pageID = "";
+    let pageArchived = false;
 
     onMount(() => {
         // Grab latest storage info
@@ -43,8 +44,10 @@
 
         // Filter out anything thats not part of this group of pages
         pages = OSD.filter(item => {
-            if(item.category !== null && item.category !== undefined) {
-                return slugURL(item.category) === category
+            if(!item['archived']) {
+                if (item.category !== null && item.category !== undefined) {
+                    return slugURL(item.category) === category
+                }
             }
         });
 
@@ -66,6 +69,7 @@
         pageContent = pageValues.content;
         pageURL = pageValues.url;
         pageID = pageValues.objectId;
+        pageArchived = pageValues['archived'];
 
         pageValues['updated']
             ? pageUpdated = pageValues['updated']
@@ -108,6 +112,44 @@
         }
     }
 
+    function handlePageArchive() {
+        let archiveCheck = confirm("Are you sure you want to archive " + pageTitle + "?");
+
+        if(archiveCheck) {
+            Backendless.Data.of("osd_pages").save({
+                objectId:pageID,
+                archived:true
+            })
+                .then(async function(savedObject) {
+                    await getAllDataFromBackendless();
+                    await goto("/" + category)
+                })
+                .catch(function(error) {
+                    // TODO: log error state
+                    console.log(error);
+                });
+        }
+    }
+
+    function handlePageArchiveRestore() {
+        let restoreCheck = confirm("Are you sure you want to restore " + pageTitle + "?");
+
+        if(restoreCheck) {
+            Backendless.Data.of("osd_pages").save({
+                objectId:pageID,
+                archived:false
+            })
+                .then(async function(savedObject) {
+                    await getAllDataFromBackendless();
+                    await goto("/" + category)
+                })
+                .catch(function(error) {
+                    // TODO: log error state
+                    console.log(error);
+                });
+        }
+    }
+
 
 </script>
 
@@ -118,8 +160,8 @@
 
 
 {#if type === null}
-
     <CollectionTemplate categoryTitle={pageCategory} {pages}>
+        {#if pageArchived}<h2 class="text-muted fst-italic">Archived</h2>{/if}
         <h1 class="mb-0">
             <span class="d-inline-block me-3">{pageTitle}</span>
 
@@ -130,6 +172,16 @@
             <button class="btn px-3" on:click={handlePageDelete}>
                 <i class="bi bi-trash"></i>
             </button>
+
+            {#if pageArchived}
+                <button class="btn px-3" on:click={handlePageArchiveRestore}>
+                    <i class="bi bi-cloud-upload"></i>
+                </button>
+            {:else}
+                <button class="btn px-3" on:click={handlePageArchive}>
+                    <i class="bi bi-archive-fill"></i>
+                </button>
+            {/if}
         </h1>
         <p class="mb-5 text-muted">Last Updated: {pageUpdated}</p>
 

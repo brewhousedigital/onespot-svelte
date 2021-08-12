@@ -24,7 +24,6 @@ export const getAllDataFromBackendless = async () => {
     await Backendless.Data.of("osd_pages").find()
         .then(function(response) {
             OSD = response;
-            //console.log("base", OSD);
             localStorage.setItem("OSD", JSON.stringify(OSD));
             return OSD;
         })
@@ -43,9 +42,20 @@ export const getAllCategories = () => {
 
     if(OSD !== null) {
         // Grab all the categories out of the array
-        categories = OSD.map(item => item.category);
+        categories = OSD.map(item => {
+            // Verify page is not archived
+            if(!item['archived']) {
+                return item.category;
+            }
+        });
+
+
         // Filter out duplicates
         categories = [...new Set(categories)];
+
+        // Map returns undefined for some reason
+        // This filters anything that's not truthy :)
+        categories = categories.filter(Boolean)
 
         categories.sort();
     }
