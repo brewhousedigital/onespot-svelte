@@ -52,7 +52,6 @@
 
     afterUpdate(() => {
         if(window.location.pathname === "/access") {
-            console.log(">>>>>>>hiding the sidebar")
             showSidebar = false;
         } else {
             showSidebar = true;

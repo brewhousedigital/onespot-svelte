@@ -39,12 +39,16 @@ export const getAllCategories = () => {
     // Grab latest storage info
     let OSD = JSON.parse(localStorage.getItem("OSD"));
 
-    // Grab all the categories out of the array
-    let categories = OSD.map(item => item.category);
-    // Filter out duplicates
-    categories = [...new Set(categories)];
+    let categories = [];
 
-    categories.sort();
+    if(OSD !== null) {
+        // Grab all the categories out of the array
+        categories = OSD.map(item => item.category);
+        // Filter out duplicates
+        categories = [...new Set(categories)];
+
+        categories.sort();
+    }
 
     return categories;
 }

@@ -1,6 +1,7 @@
 <script>
     import {goto} from "$app/navigation";
     import SidebarCompany from "$lib/page-components/SidebarCompany.svelte";
+    import {getAllDataFromBackendless} from "$lib/js/getDataFromBackendless";
 
     let formData = {
         email: "",
@@ -17,9 +18,10 @@
         errorMessage = "";
 
         Backendless.UserService.login(formData.email, formData.password, true)
-            .then(function(loggedInUser) {
+            .then(async function(loggedInUser) {
                 localStorage.setItem("userDetails", JSON.stringify(loggedInUser))
-                goto("/")
+                await getAllDataFromBackendless();
+                await goto("/")
             })
             .catch(function(error) {
                 // Populate with error from Backendless
