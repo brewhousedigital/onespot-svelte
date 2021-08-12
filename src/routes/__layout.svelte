@@ -13,7 +13,7 @@
     const API_KEY = '8561E43D-334E-44E4-B05E-40A81D6E081A';
     Backendless.initApp(APP_ID, API_KEY);
 
-    import { fade } from 'svelte/transition';
+    //import { fade } from 'svelte/transition';
 
     let currentTitle = "";
     let loadContent = false;
@@ -90,6 +90,14 @@
         localStorage.setItem("theme", theme);
     }
 </script>
+
+
+<svelte:head>
+    <meta property="og:type" content="website" />
+    <meta property="og:url"                content="{currentPath}" />
+    <meta property="og:title"              content="{currentTitle} - OneSpot Docs" />
+    <meta property="og:description"        content="A tool to keep track of all your project info." />
+</svelte:head>
 
 
 <style>
@@ -217,8 +225,8 @@
 {/if}
 
 {#if loadContent}
-
-    <div class="container-fluid" transition:fade="{{duration: 300}}">
+<!-- transition:fade="{{duration: 300}}" -->
+    <div class="container-fluid" >
         <div class="row">
             {#if showSidebar}
                 <div id="layout-sidebar" class="col-auto">
