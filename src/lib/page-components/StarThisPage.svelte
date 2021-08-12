@@ -1,6 +1,5 @@
 <script>
     import { onMount, tick } from "svelte";
-    import { partyJS } from "$lib/js/party";
 
     export let currentPath = "/";
     export let currentTitle = "Home";
