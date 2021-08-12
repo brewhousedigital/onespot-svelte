@@ -11,6 +11,7 @@
     let currentTitle = "";
     let loadContent = false;
     let showSidebar = true;
+    let theme = "light";
 
     import Backendless from 'backendless'
     import {partyJS} from "$lib/js/party";
@@ -39,6 +40,15 @@
 
         currentPath = window.location.pathname;
         currentTitle = document.title;
+
+        // Check for theme
+        if(localStorage.getItem("theme") === null) {
+            localStorage.setItem("theme", "light");
+        }
+
+        theme = localStorage.getItem("theme");
+
+
 
         // Activate confetti!
         partyJS();
@@ -75,7 +85,16 @@
         currentPath = window.location.pathname;
         categories = getAllCategories();
     })
+
+    function handleDarkMode() {
+        theme === "light"
+            ? theme = "dark"
+            : theme = "light";
+
+        localStorage.setItem("theme", theme);
+    }
 </script>
+
 
 <svelte:head>
     <meta property="og:type" content="website" />
@@ -83,6 +102,7 @@
     <meta property="og:title"              content="{currentTitle} - OneSpot Docs" />
     <meta property="og:description"        content="A tool to keep track of all your project info." />
 </svelte:head>
+
 
 <style>
     #layout-sidebar,
@@ -145,65 +165,119 @@
     }
     #nav-main-options a,
     #nav-collections a,
-    #nav-settings a {
+    #nav-settings a,
+    #nav-settings button {
         color: #515c6c;
         text-decoration: none;
         display: block;
         padding: 8px 0;
         font-weight: 500;
         font-size: 20px;
+        border: 0;
+        background-color: transparent;
     }
 </style>
 
+
+{#if theme === "dark"}
+    <style>
+        #layout-sidebar {
+            background-color: #1f1f1f!important;
+            color: #eee!important;
+        }
+        #layout-content {
+            background-color: #121212!important;
+            color: #eee!important;
+        }
+
+        #layout-sidebar-scroll::-webkit-scrollbar-track,
+        #layout-content-scroll::-webkit-scrollbar-track {
+            background-color: #222!important;
+        }
+
+        #layout-sidebar-scroll::-webkit-scrollbar,
+        #layout-content-scroll::-webkit-scrollbar {
+            background-color: #292929!important;
+        }
+
+        #layout-sidebar-scroll::-webkit-scrollbar-thumb,
+        #layout-content-scroll::-webkit-scrollbar-thumb {
+            background-color: #292929!important;
+        }
+
+        #nav-main-options a,
+        #nav-collections a,
+        #nav-settings a,
+        #nav-settings button {
+            color: #eee!important;
+        }
+
+        #docs-sidebar a {
+            color: var(--emerland)!important;
+        }
+
+        .btn {
+            color: #fff!important;
+        }
+
+        input, textarea, select, .list-group-item {
+            background-color: #000!important;
+            border: 1px solid #000!important;
+            color: #fff!important;
+        }
+    </style>
+{/if}
+
 {#if loadContent}
 
-<div class="container-fluid" transition:fade="{{duration: 300}}">
-    <div class="row">
-        {#if showSidebar}
-        <div id="layout-sidebar" class="col-auto">
-            <div id="layout-sidebar-scroll" class="d-flex flex-column">
-                <SidebarCompany />
+    <div class="container-fluid" transition:fade="{{duration: 300}}">
+        <div class="row">
+            {#if showSidebar}
+                <div id="layout-sidebar" class="col-auto">
+                    <div id="layout-sidebar-scroll" class="d-flex flex-column">
+                        <SidebarCompany />
 
-                <nav id="nav-main-options">
-                    <a href="/" sveltekit:prefetch><i class="bi bi-house-door-fill me-2"></i>Home</a>
-                    <a href="/search" sveltekit:prefetch><i class="bi bi-search me-2"></i>Search</a>
-                    <a href="/starred" sveltekit:prefetch><i class="bi bi-star-fill me-2"></i>Starred</a>
-                </nav>
+                        <nav id="nav-main-options">
+                            <a href="/" sveltekit:prefetch><i class="bi bi-house-door-fill me-2"></i>Home</a>
+                            <a href="/search" sveltekit:prefetch><i class="bi bi-search me-2"></i>Search</a>
+                            <a href="/starred" sveltekit:prefetch><i class="bi bi-star-fill me-2"></i>Starred</a>
+                        </nav>
 
-                <nav id="nav-collections">
-                    {#each categories as category}
-                        <a href="/{slugURL(category)}" sveltekit:prefetch>
-                            <i class="bi bi-file-earmark me-2 color-emerland"></i>{category}
-                        </a>
-                    {:else}
-                        <p>No categories made. <br>Create a new page first!</p>
-                    {/each}
+                        <nav id="nav-collections">
+                            {#each categories as category}
+                                <a href="/{slugURL(category)}" sveltekit:prefetch>
+                                    <i class="bi bi-file-earmark me-2 color-emerland"></i>{category}
+                                </a>
+                            {:else}
+                                <p>No categories made. <br>Create a new page first!</p>
+                            {/each}
 
-                    <a href="/new-page" sveltekit:prefetch>
-                        <i class="bi bi-plus-lg me-2 color-emerland"></i>New Page
-                    </a>
-                </nav>
+                            <a href="/new-page" sveltekit:prefetch>
+                                <i class="bi bi-plus-lg me-2 color-emerland"></i>New Page
+                            </a>
+                        </nav>
 
-                <nav id="nav-settings" class="mt-auto">
-                    <a href="/archive" sveltekit:prefetch><i class="bi bi-archive-fill me-2"></i>Archive</a>
-                    <a href="/settings" sveltekit:prefetch><i class="bi bi-gear-fill me-2"></i>Settings</a>
-                    <a href="/logout" sveltekit:prefetch><i class="bi bi-box-arrow-up-left me-2"></i>Logout</a>
-                </nav>
-            </div><!-- end scroll -->
-        </div><!-- end col -->
-        {/if}
+                        <nav id="nav-settings" class="mt-auto">
+                            <a href="/archive" sveltekit:prefetch><i class="bi bi-archive-fill me-2"></i>Archive</a>
+                            <a href="/settings" sveltekit:prefetch><i class="bi bi-gear-fill me-2"></i>Settings</a>
+                            <button type="button" on:click={handleDarkMode}><i class="bi bi-moon-stars me-2"></i>Dark Mode</button>
+                            <a href="/logout" sveltekit:prefetch><i class="bi bi-box-arrow-up-left me-2"></i>Logout</a>
+                        </nav>
+                    </div><!-- end scroll -->
+                </div><!-- end col -->
+            {/if}
 
-        <div id="layout-content" class="col">
-            <div id="layout-content-scroll">
+            <div id="layout-content" class="col">
+                <div id="layout-content-scroll">
                     {#key currentPath}
                         <slot></slot>
                     {/key}
 
-                {#key currentPath}
-                    <StarThisPage {currentPath} {currentTitle} />
-                {/key}
-            </div>
-        </div><!-- end col -->
-    </div><!-- end row -->
-</div><!-- end container -->
+                    {#key currentPath}
+                        <StarThisPage {currentPath} {currentTitle} />
+                    {/key}
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
 {/if}
