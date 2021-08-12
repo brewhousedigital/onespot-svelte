@@ -1,7 +1,3 @@
-<script context="module">
-    export const prerender = true;
-</script>
-
 <script>
     import '$lib/css/global.css';
     import SidebarCompany from "$lib/page-components/SidebarCompany.svelte";

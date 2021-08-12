@@ -1,6 +1,4 @@
 <script context="module">
-    export const prerender = true;
-
     export async function load(ctx) {
         // "tableOfContents" is the file name. That is where the parameter comes from
         let slug = ctx.page.params.tableOfContents;

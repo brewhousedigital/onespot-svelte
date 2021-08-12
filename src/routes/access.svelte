@@ -1,7 +1,3 @@
-<script context="module">
-    export const prerender = true;
-</script>
-
 <script>
     import {goto} from "$app/navigation";
     import SidebarCompany from "$lib/page-components/SidebarCompany.svelte";
