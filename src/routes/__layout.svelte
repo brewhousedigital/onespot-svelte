@@ -10,6 +10,7 @@
 
     let currentTitle = "";
     let loadContent = false;
+    let showSidebar = true;
 
     import Backendless from 'backendless'
     import {partyJS} from "$lib/js/party";
@@ -50,6 +51,13 @@
     })
 
     afterUpdate(() => {
+        if(window.location.pathname === "/access") {
+            console.log(">>>>>>>hiding the sidebar")
+            showSidebar = false;
+        } else {
+            showSidebar = true;
+        }
+
         // Authentication check
         let url = window.location.pathname;
         storageSetup();
@@ -62,7 +70,7 @@
         if(url.includes("/logout")) return false;
 
         // If user is not on the unauthenticated pages, redirect them
-        //if(userDetails === null || userDetails === false) goto("/access")
+        if(userDetails === null || userDetails === false) goto("/access")
 
         // If user is logged in, generate categories
         currentPath = window.location.pathname;
@@ -149,8 +157,10 @@
 </style>
 
 {#if loadContent}
+
 <div class="container-fluid" transition:fade="{{duration: 300}}">
     <div class="row">
+        {#if showSidebar}
         <div id="layout-sidebar" class="col-auto">
             <div id="layout-sidebar-scroll" class="d-flex flex-column">
                 <SidebarCompany />
@@ -178,15 +188,17 @@
                 <nav id="nav-settings" class="mt-auto">
                     <a href="/archive" sveltekit:prefetch><i class="bi bi-archive-fill me-2"></i>Archive</a>
                     <a href="/settings" sveltekit:prefetch><i class="bi bi-gear-fill me-2"></i>Settings</a>
+                    <a href="/logout" sveltekit:prefetch><i class="bi bi-box-arrow-up-left me-2"></i>Logout</a>
                 </nav>
             </div><!-- end scroll -->
         </div><!-- end col -->
+        {/if}
 
         <div id="layout-content" class="col">
             <div id="layout-content-scroll">
-                {#key currentPath}
-                    <slot></slot>
-                {/key}
+                    {#key currentPath}
+                        <slot></slot>
+                    {/key}
 
                 {#key currentPath}
                     <StarThisPage {currentPath} {currentTitle} />
