@@ -1,15 +1,21 @@
 <script>
-    import { getAllDataFromBackendless } from "$lib/js/getDataFromBackendless";
+    import {getAllCategories, getAllDataFromBackendless} from "$lib/js/getDataFromBackendless";
     import { buttonProcessingState, buttonProcessingStateEnable } from "$lib/js/buttonProcessingState";
     import { goto } from "$app/navigation";
 
-    import CategoriesDataList from "$lib/page-components/CategoriesDataList.svelte";
+    //import CategoriesDataList from "$lib/page-components/CategoriesDataList.svelte";
+    import {onMount} from "svelte";
 
+    let categories = [];
     export let pageID = "";
     export let pageTitle = "";
     export let pageContent = "";
     export let pageCategory = "";
     export let pageURL = "";
+
+    onMount(() => {
+        categories = getAllCategories();
+    })
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -68,7 +74,11 @@
             </div>
 
 
-            <CategoriesDataList />
+            <datalist id="categories">
+                {#each categories as category}
+                    <option>{category}</option>
+                {/each}
+            </datalist>
         </div><!-- end col -->
 
         <div class="col-lg-6">

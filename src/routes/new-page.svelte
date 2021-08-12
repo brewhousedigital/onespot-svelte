@@ -4,7 +4,7 @@
     import slugURL from "$lib/js/slugURL";
     import { getAllDataFromBackendless, getAllCategories } from "$lib/js/getDataFromBackendless";
     import { buttonProcessingState, buttonProcessingStateEnable } from "$lib/js/buttonProcessingState";
-    import CategoriesDataList from "$lib/page-components/CategoriesDataList.svelte";
+    //import CategoriesDataList from "$lib/page-components/CategoriesDataList.svelte";
 
     let OSD = [];
     let categories = [];
@@ -77,7 +77,11 @@
         <small class="text-muted">Choose from an existing category or create a new one</small>
     </div>
 
-    <CategoriesDataList />
+    <datalist id="categories">
+        {#each categories as category}
+            <option>{category}</option>
+        {/each}
+    </datalist>
 
     <p><button id="submitBtn" class="btn btn-primary" type="submit">Create Your Page</button></p>
 </form>
