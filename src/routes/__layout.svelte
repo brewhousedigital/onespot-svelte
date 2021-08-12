@@ -3,8 +3,15 @@
     import SidebarCompany from "$lib/page-components/SidebarCompany.svelte";
     import StarThisPage from "$lib/page-components/StarThisPage.svelte";
     import { beforeUpdate, afterUpdate, onMount } from "svelte";
+    import {goto} from "$app/navigation";
     import slugURL from "$lib/js/slugURL";
     import {getAllDataFromBackendless, getAllCategories, getUserDetailsFromBackendless} from "$lib/js/getDataFromBackendless";
+
+    import Backendless from 'backendless'
+    import {partyJS} from "$lib/js/party";
+    const APP_ID = 'BFD3873C-0565-EBFE-FFA8-8001D60AC000';
+    const API_KEY = '8561E43D-334E-44E4-B05E-40A81D6E081A';
+    Backendless.initApp(APP_ID, API_KEY);
 
     import { fade } from 'svelte/transition';
 
@@ -12,13 +19,6 @@
     let loadContent = false;
     let showSidebar = true;
     let theme = "light";
-
-    import Backendless from 'backendless'
-    import {partyJS} from "$lib/js/party";
-    import {goto} from "$app/navigation";
-    const APP_ID = 'BFD3873C-0565-EBFE-FFA8-8001D60AC000';
-    const API_KEY = '8561E43D-334E-44E4-B05E-40A81D6E081A';
-    Backendless.initApp(APP_ID, API_KEY);
 
     let currentPath;
 
@@ -61,11 +61,7 @@
     })
 
     afterUpdate(() => {
-        if(window.location.pathname === "/access") {
-            showSidebar = false;
-        } else {
-            showSidebar = true;
-        }
+        showSidebar = window.location.pathname !== "/access";
 
         // Authentication check
         let url = window.location.pathname;
@@ -94,14 +90,6 @@
         localStorage.setItem("theme", theme);
     }
 </script>
-
-
-<svelte:head>
-    <meta property="og:type" content="website" />
-    <meta property="og:url"                content="{currentPath}" />
-    <meta property="og:title"              content="{currentTitle} - OneSpot Docs" />
-    <meta property="og:description"        content="A tool to keep track of all your project info." />
-</svelte:head>
 
 
 <style>
