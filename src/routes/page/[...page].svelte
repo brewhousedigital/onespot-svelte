@@ -7,15 +7,6 @@
 </script>
 
 <script>
-    import '$lib/js/marked';
-    import { onMount } from "svelte";
-    import slugURL from "$lib/js/slugURL";
-
-    import CollectionTemplate from "$lib/page-components/CollectionTemplate.svelte";
-    import EditPageTemplate from "$lib/page-components/EditPageTemplate.svelte";
-    import {goto} from "$app/navigation";
-    import {getAllDataFromBackendless} from "$lib/js/getDataFromBackendless";
-
     // These are the URL parameters
     export let slug = [];
     let category = slug[0];
@@ -25,6 +16,16 @@
     if(slug[2] !== undefined) {
         type = slug[2]
     }
+
+
+    import '$lib/js/marked';
+    import { onMount } from "svelte";
+    import slugURL from "$lib/js/slugURL";
+
+    import CollectionTemplate from "$lib/page-components/CollectionTemplate.svelte";
+    import EditPageTemplate from "$lib/page-components/EditPageTemplate.svelte";
+    import {goto} from "$app/navigation";
+    import {getAllDataFromBackendless} from "$lib/js/getDataFromBackendless";
 
     // Site title
     let currentTitle = "";
