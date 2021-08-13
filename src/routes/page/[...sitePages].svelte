@@ -9,14 +9,11 @@
 
 <script>
     // These are the URL parameters
-    export let pageSlug = [];
-    console.log(">>>>>>pageSlug", pageSlug)
-    let category = pageSlug.category;
-    let page = pageSlug.page;
+    export let pageSlug;
+
+    let category;
+    let page;
     let type = "normal";
-    if(pageSlug.type !== undefined) {
-        type = pageSlug.type
-    }
 
 
     import '$lib/js/marked';
@@ -45,6 +42,13 @@
     let pageArchived = false;
 
     onMount(() => {
+        // Process URL
+        category = pageSlug.category;
+        page = pageSlug.page;
+        if(pageSlug.type !== undefined) {
+            type = pageSlug.type
+        }
+
         // Grab latest storage info
         OSD = JSON.parse(localStorage.getItem("OSD"));
 
