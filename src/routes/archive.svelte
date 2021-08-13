@@ -24,7 +24,7 @@
 
 <div class="list-group">
     {#each pages as page}
-        <a href="{page.url}" class="list-group-item list-group-item-action">{page.title}</a>
+        <a href="/page{page.url}" class="list-group-item list-group-item-action">{page.title}</a>
     {:else}
         <p>No starred pages yet!</p>
     {/each}

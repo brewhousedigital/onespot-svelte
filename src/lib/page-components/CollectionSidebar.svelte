@@ -19,6 +19,6 @@
 
 <div id="docs-sidebar" class="px-5 sticky-top">
     {#each pages as page}
-        <a href="{page.url}" sveltekit:prefetch>{page.title}</a>
+        <a href="/page{page.url}" sveltekit:prefetch>{page.title}</a>
     {/each}
 </div>

@@ -32,7 +32,7 @@
                 party.confetti(starComponent);
 
                 await getAllDataFromBackendless();
-                await goto(response.url + "/edit")
+                await goto("/page" + response.url + "/edit")
             })
             .catch(function(error) {
                 // TODO: Create error box for this

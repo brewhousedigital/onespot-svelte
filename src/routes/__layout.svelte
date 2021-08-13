@@ -13,7 +13,7 @@
     const API_KEY = '8561E43D-334E-44E4-B05E-40A81D6E081A';
     Backendless.initApp(APP_ID, API_KEY);
 
-    //import { fade } from 'svelte/transition';
+    import { fade } from 'svelte/transition';
 
     let currentTitle = "";
     let loadContent = false;
@@ -221,12 +221,33 @@
             border: 1px solid #000!important;
             color: #fff!important;
         }
+
+        pre, code {
+            background-color: var(--wisteria);
+        }
+
+        a {
+            color: var(--emerland)
+        }
+
+        code {color: #eee;}
+
+        .table {
+            --bs-table-bg: #212529;
+            --bs-table-striped-bg: #2c3034;
+            --bs-table-striped-color: #fff;
+            --bs-table-active-bg: #373b3e;
+            --bs-table-active-color: #fff;
+            --bs-table-hover-bg: #323539;
+            --bs-table-hover-color: #fff;
+            color: #fff;
+            border-color: #373b3e;
+        }
     </style>
 {/if}
 
 {#if loadContent}
-<!-- transition:fade="{{duration: 300}}" -->
-    <div class="container-fluid" >
+    <div class="container-fluid" transition:fade="{{duration: 300}}">
         <div class="row">
             {#if showSidebar}
                 <div id="layout-sidebar" class="col-auto">
@@ -241,14 +262,14 @@
 
                         <nav id="nav-collections">
                             {#each categories as category}
-                                <a href="/{slugURL(category)}" sveltekit:prefetch>
+                                <a href="/page/{slugURL(category)}" sveltekit:prefetch>
                                     <i class="bi bi-file-earmark me-2 color-emerland"></i>{category}
                                 </a>
                             {:else}
                                 <p>No categories made. <br>Create a new page first!</p>
                             {/each}
 
-                            <a href="/new-page" sveltekit:prefetch>
+                            <a href="/page" sveltekit:prefetch>
                                 <i class="bi bi-plus-lg me-2 color-emerland"></i>New Page
                             </a>
                         </nav>

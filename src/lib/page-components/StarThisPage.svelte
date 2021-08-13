@@ -8,7 +8,13 @@
     let visible = true;
 
     let listOfPagesToHideStar = [
-        "/starred"
+        "/",
+        "/search",
+        "/starred",
+        "/page",
+        "/archive",
+        "/logout",
+        "/access",
     ]
 
 

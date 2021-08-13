@@ -77,7 +77,7 @@
     <h2>Active Pages</h2>
 <div class="list-group pb-5 border-bottom mb-5">
     {#each results as result}
-        <a href="{result.url}" class="list-group-item list-group-item-action">{result.title} <i class="bi bi-link-45deg"></i></a>
+        <a href="/page{result.url}" class="list-group-item list-group-item-action">{result.title} <i class="bi bi-link-45deg"></i></a>
     {:else}
         <p>No active pages with "{searchTerm}" were found</p>
     {/each}
@@ -91,7 +91,7 @@
     <h2>Archived Pages</h2>
 <div class="list-group">
     {#each archiveResults as result}
-        <a href="{result.url}" class="list-group-item list-group-item-action">{result.title} <i class="bi bi-link-45deg"></i></a>
+        <a href="/page{result.url}" class="list-group-item list-group-item-action">{result.title} <i class="bi bi-link-45deg"></i></a>
     {:else}
         <p>No archive pages with "{searchTerm}" were found</p>
     {/each}

@@ -38,7 +38,7 @@
                 party.confetti(starComponent);
 
                 await getAllDataFromBackendless();
-                await goto(response.url)
+                await goto("/page" + response.url)
             })
             .catch(function(error) {
                 // TODO: Create error box for this
@@ -107,6 +107,6 @@
 
     <p>
         <button id="submitBtn" class="btn btn-primary px-5" type="submit">Save</button>
-        <a href="{pageURL}" id="cancelBtn" class="btn px-5">Cancel</a>
+        <a href="/page{pageURL}" id="cancelBtn" class="btn px-5">Cancel</a>
     </p>
 </form>
