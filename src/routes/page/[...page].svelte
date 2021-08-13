@@ -1,20 +1,21 @@
 <script context="module">
     export async function load(ctx) {
         // Since this is a spread operator, it pulls in the entire URL as a string
-        let slug = ctx.page.params.page.split("/");
-        return {props: {slug: slug}};
+        let [category, page, type] = ctx.page.params.page.split("/");
+        //let slug = ctx.page.params.page.split("/");
+        return {props: {pageSlug: {category, page, type}}};
     }
 </script>
 
 <script>
     // These are the URL parameters
-    export let slug = [];
-    let category = slug[0];
-    let page = slug[1];
-    console.log(">>>>>slug[2]", slug[2]);
+    export let pageSlug = [];
+    console.log(">>>>>>pageSlug", pageSlug)
+    let category = pageSlug.category;
+    let page = pageSlug.page;
     let type = "normal";
-    if(slug[2] !== undefined) {
-        type = slug[2]
+    if(pageSlug.type !== undefined) {
+        type = pageSlug.type
     }
 
 
@@ -200,7 +201,7 @@
 {:else}
 
     <!-- Edit page view -->
-    <CollectionTemplate {pageCategory} {pages}>
+    <CollectionTemplate categoryTitle={pageCategory} {pages}>
         <EditPageTemplate {pageID} {pageTitle} {pageContent} {pageCategory} {pageURL} />
     </CollectionTemplate>
 

@@ -2,7 +2,7 @@
     import CollectionTitle from "$lib/page-components/CollectionTitle.svelte";
     import CollectionSidebar from "$lib/page-components/CollectionSidebar.svelte";
 
-    export let categoryTitle = "";
+    export let categoryTitle;
     export let pages = [];
 </script>
 

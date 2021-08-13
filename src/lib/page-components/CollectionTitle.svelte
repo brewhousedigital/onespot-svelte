@@ -1,5 +1,5 @@
 <script>
-    export let categoryTitle = "";
+    export let categoryTitle;
 </script>
 
 <style>
