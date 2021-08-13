@@ -1,7 +1,7 @@
 <script context="module">
     export async function load(ctx) {
         // Since this is a spread operator, it pulls in the entire URL as a string
-        let [category, page, type] = ctx.page.params.page.split("/");
+        let [category, page, type] = ctx.page.params.document.split("/");
         //let slug = ctx.page.params.page.split("/");
         return {props: {pageSlug: {category, page, type}}};
     }
