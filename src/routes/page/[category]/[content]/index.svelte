@@ -13,7 +13,8 @@
     let category = pageSlug.category;
     let page = pageSlug.content;
 
-    //import '$lib/js/marked';
+    //import { useMarkDown } from '$lib/js/marked';
+    import marked from 'marked';
     import { onMount } from "svelte";
     import slugURL from "$lib/js/slugURL";
 
@@ -84,8 +85,8 @@
 
         // Convert content from Markdown to HTML
         if(pageContent !== null && pageContent !== undefined) {
-            //pageHTML = marked(pageContent);
-            pageHTML = pageContent;
+            pageHTML = marked(pageContent);
+            //pageHTML = pageContent;
             pageHTML= pageHTML.replace("<table>", "<table class='table'>")
         }
 
