@@ -19,22 +19,22 @@
             filteredResults = OSD.filter(item => {
                 // Search the title
                 if(item.title) {
-                    if(item.title.toLowerCase().includes(searchTerm)) {return item;}
+                    if(item.title.toLowerCase().includes(searchTerm.toLowerCase())) {return item;}
                 }
 
                 // Search the category
                 if(item.category) {
-                    if (item.category.toLowerCase().includes(searchTerm)) {return item;}
+                    if (item.category.toLowerCase().includes(searchTerm.toLowerCase())) {return item;}
                 }
 
                 // Search the content
                 if(item.content) {
-                    if (item.content.toLowerCase().includes(searchTerm)) {return item;}
+                    if (item.content.toLowerCase().includes(searchTerm.toLowerCase())) {return item;}
                 }
 
                 // Search the url
                 if(item.url) {
-                    if (item.url.toLowerCase().includes(searchTerm)) {return item;}
+                    if (item.url.toLowerCase().includes(searchTerm.toLowerCase())) {return item;}
                 }
             });
 
@@ -46,6 +46,8 @@
             results = [];
             archiveResults = [];
         }
+
+        console.log(searchTerm, results)
     }
 </script>
 

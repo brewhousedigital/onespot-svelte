@@ -1,9 +1,8 @@
 <script context="module">
     export async function load(ctx) {
-        // Since this is a spread operator, it pulls in the entire URL as a string
-        let [category, page, type] = ctx.page.params.sitePages.split("/");
-        //let slug = ctx.page.params.page.split("/");
-        return {props: {pageSlug: {category, page, type}}};
+        // Dynamic folders return objects
+        let slug = ctx.page.params;
+        return {props: {pageSlug: {category: slug.category, content: slug.content}}};
     }
 </script>
 
@@ -11,17 +10,14 @@
     // These are the URL parameters
     export let pageSlug;
 
-    let category;
-    let page;
-    let type = "normal";
-
+    let category = pageSlug.category;
+    let page = pageSlug.content;
 
     import '$lib/js/marked';
     import { onMount } from "svelte";
     import slugURL from "$lib/js/slugURL";
 
     import CollectionTemplate from "$lib/page-components/CollectionTemplate.svelte";
-    import EditPageTemplate from "$lib/page-components/EditPageTemplate.svelte";
     import {goto} from "$app/navigation";
     import {getAllDataFromBackendless} from "$lib/js/getDataFromBackendless";
 
@@ -42,13 +38,6 @@
     let pageArchived = false;
 
     onMount(() => {
-        // Process URL
-        category = pageSlug.category;
-        page = pageSlug.page;
-        if(pageSlug.type !== undefined) {
-            type = pageSlug.type
-        }
-
         // Grab latest storage info
         OSD = JSON.parse(localStorage.getItem("OSD"));
 
@@ -100,9 +89,10 @@
         }
 
         // Save the new title
-        currentTitle = type === null
+        currentTitle = pageTitle;
+        /*currentTitle = type === null
             ? pageTitle
-            : "Edit " + pageTitle;
+            : "Edit " + pageTitle;*/
     })
 
 
@@ -169,47 +159,35 @@
 </svelte:head>
 
 
-{#if type === "normal"}
+<CollectionTemplate categoryTitle={pageCategory} {pages}>
+    {#if pageArchived}<h2 class="text-muted fst-italic">Archived</h2>{/if}
+    <h1 class="mb-0">
+        <span class="d-inline-block me-3">{pageTitle}</span>
 
-    <!-- Normal page view -->
-    <CollectionTemplate categoryTitle={pageCategory} {pages}>
-        {#if pageArchived}<h2 class="text-muted fst-italic">Archived</h2>{/if}
-        <h1 class="mb-0">
-            <span class="d-inline-block me-3">{pageTitle}</span>
+        <a href="/page{pageURL}/edit" sveltekit:prefetch class="btn px-3">
+            <i class="bi bi-pencil-square"></i>
+        </a>
 
-            <a href="/page{pageURL}/edit" sveltekit:prefetch class="btn px-3">
-                <i class="bi bi-pencil-square"></i>
-            </a>
+        <button class="btn px-3" on:click={handlePageDelete}>
+            <i class="bi bi-trash"></i>
+        </button>
 
-            <button class="btn px-3" on:click={handlePageDelete}>
-                <i class="bi bi-trash"></i>
+        {#if pageArchived}
+            <button class="btn px-3" on:click={handlePageArchiveRestore}>
+                <i class="bi bi-cloud-upload"></i>
             </button>
+        {:else}
+            <button class="btn px-3" on:click={handlePageArchive}>
+                <i class="bi bi-archive-fill"></i>
+            </button>
+        {/if}
+    </h1>
+    <p class="mb-5 text-muted">Last Updated: {pageUpdated}</p>
 
-            {#if pageArchived}
-                <button class="btn px-3" on:click={handlePageArchiveRestore}>
-                    <i class="bi bi-cloud-upload"></i>
-                </button>
-            {:else}
-                <button class="btn px-3" on:click={handlePageArchive}>
-                    <i class="bi bi-archive-fill"></i>
-                </button>
-            {/if}
-        </h1>
-        <p class="mb-5 text-muted">Last Updated: {pageUpdated}</p>
-
-        <div>
-            {@html pageHTML}
-        </div>
-    </CollectionTemplate>
-
-{:else}
-
-    <!-- Edit page view -->
-    <CollectionTemplate categoryTitle={pageCategory} {pages}>
-        <EditPageTemplate {pageID} {pageTitle} {pageContent} {pageCategory} {pageURL} />
-    </CollectionTemplate>
-
-{/if}
+    <div>
+        {@html pageHTML}
+    </div>
+</CollectionTemplate>
 
 
 

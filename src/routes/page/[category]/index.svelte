@@ -1,8 +1,8 @@
 <script context="module">
     export async function load(ctx) {
-        // "tableOfContents" is the file name. That is where the parameter comes from
-        let slug = ctx.page.params.tableOfContents;
-        return {props: {slug: slug}};
+        // "category" is the name of the folder. That is where the parameter comes from
+        let slug = ctx.page.params;
+        return {props: {slug: slug.category}};
     }
 </script>
 

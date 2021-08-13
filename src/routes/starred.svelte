@@ -30,7 +30,7 @@
 
 <div class="list-group mb-5">
     {#each starredPages as page}
-        <a href="/page{page.url}" class="list-group-item list-group-item-action">{page.name}</a>
+        <a href="{page.url}" class="list-group-item list-group-item-action">{page.name}</a>
     {:else}
         <p>No starred pages yet!</p>
     {/each}
