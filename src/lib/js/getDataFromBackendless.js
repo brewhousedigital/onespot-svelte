@@ -57,6 +57,7 @@ export const getAllCategories = () => {
         // This filters anything that's not truthy :)
         categories = categories.filter(Boolean)
 
+        // Sort alphabetically
         categories.sort();
     }
 
