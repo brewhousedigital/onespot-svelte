@@ -86,8 +86,12 @@
         // Convert content from Markdown to HTML
         if(pageContent !== null && pageContent !== undefined) {
             pageHTML = marked(pageContent);
-            //pageHTML = pageContent;
-            pageHTML= pageHTML.replace("<table>", "<table class='table'>")
+
+            // Update all tables
+            pageHTML= pageHTML.replace("<table>", "<table class='table'>");
+
+            // Update all anchor links to be target=_blank
+            pageHTML= pageHTML.replace("<a ", "<a target='_blank' ");
         }
 
         // Save the new title
