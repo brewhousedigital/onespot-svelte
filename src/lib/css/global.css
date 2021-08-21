@@ -85,3 +85,13 @@ body {
 .color-pomegranate {color: var(--pomegranate)}
 .color-silver {color: var(--silver)}
 .color-asbestos {color: var(--asbestos)}
+
+
+.markdown-container h1,
+.markdown-container h2,
+.markdown-container h3,
+.markdown-container h4,
+.markdown-container h5,
+.markdown-container h6 {
+    margin-top: 32px;
+}

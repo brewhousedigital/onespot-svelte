@@ -88,10 +88,13 @@
             pageHTML = marked(pageContent);
 
             // Update all tables
-            pageHTML= pageHTML.replace("<table>", "<table class='table'>");
+            pageHTML = pageHTML.replace("<table>", "<table class='table'>");
 
             // Update all anchor links to be target=_blank
-            pageHTML= pageHTML.replace("<a ", "<a target='_blank' ");
+            pageHTML = pageHTML.replace("<a ", "<a target='_blank' ");
+
+            // Wrap the entire thing in a specific class for targeting
+            pageHTML = "<div class='markdown-container'>" + pageHTML + "</div>";
         }
 
         // Save the new title
