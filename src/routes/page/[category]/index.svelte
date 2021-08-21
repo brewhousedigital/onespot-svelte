@@ -31,6 +31,13 @@
             }
         });
 
+        // Sort alphabetical
+        pages.sort((a, b) => {
+            if(a.title < b.title) return -1
+            if(a.title > b.title) return 1
+            return 0
+        });
+
         // Grab official title
         if(pages.length > 0) {categoryTitle = pages[0]['category']}
     })

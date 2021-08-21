@@ -51,6 +51,13 @@
             }
         });
 
+        // Sort alphabetical
+        pages.sort((a, b) => {
+            if(a.title < b.title) return -1
+            if(a.title > b.title) return 1
+            return 0
+        });
+
         // Find the specific page the user needs
         pageValues = OSD.filter(item => {
             if(item.url !== null && item.url !== undefined) {
