@@ -55,7 +55,7 @@
         // Find the specific page the user needs
         pageValues = OSD.filter(item => {
             if(item.url !== null && item.url !== undefined) {
-                return item.url.includes(page);
+                return item.url.includes("/" + category + "/" + page);
             }
         });
 
