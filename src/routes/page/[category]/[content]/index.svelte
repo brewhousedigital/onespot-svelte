@@ -15,7 +15,7 @@
 
     //import { useMarkDown } from '$lib/js/marked';
     import marked from 'marked';
-    import { onMount } from "svelte";
+    import {afterUpdate, onMount} from "svelte";
     import slugURL from "$lib/js/slugURL";
 
     import CollectionTemplate from "$lib/page-components/CollectionTemplate.svelte";
@@ -164,6 +164,8 @@
 
 
 <svelte:head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <title>{currentTitle}</title>
 </svelte:head>
 
