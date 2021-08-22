@@ -21,7 +21,12 @@ export const getUserDetailsFromBackendless = async () => {
 
 export const getAllDataFromBackendless = async () => {
     let OSD = [];
-    await Backendless.Data.of("osd_pages").find()
+
+    // Backendless has a default of 10 items and a limit of 100 items
+    let queryBuilder = Backendless.DataQueryBuilder.create();
+    queryBuilder.setPageSize(100);
+
+    await Backendless.Data.of("osd_pages").find(queryBuilder)
         .then(function(response) {
             OSD = response;
             localStorage.setItem("OSD", JSON.stringify(OSD));
