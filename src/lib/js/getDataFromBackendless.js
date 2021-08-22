@@ -23,6 +23,8 @@ export const getAllDataFromBackendless = async () => {
     let OSD = [];
 
     // Backendless has a default of 10 items and a limit of 100 items
+    // Once the limit gets higher, we can just use setOffset a dozen times and
+    // fake the limit to 1000
     let queryBuilder = Backendless.DataQueryBuilder.create();
     queryBuilder.setPageSize(100);
 
